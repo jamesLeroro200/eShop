@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-full flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-3">
+    <div>
+      <span class="mt-6 text-3xl text-center font-bold block text-indigo-600">DIBI SHOP</span>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Contact</h2>
+    </div>
+    <form hx-post="{% url 'contact' %}" hx-swap="outerHTML">
+      {% csrf_token %}
+      <p class="subtitle">Get in touch!</p>
+      {{ contact_form }}
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from store.views import index, product_detail, catalog, aboutUs, contact
+from django.conf.urls.static import static
+from eshop import settings
+from accounts.views import signUp
 
 urlpatterns = [
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
-]
+    path('signup/', signUp, name='signup'),
+    path('catalog/', catalog, name='catalog'),
+    path('aboutUs/', aboutUs, name='aboutUs'),
+    path('contact/', contact, name='contact'),
+    path('product/<str:slug>', product_detail, name='product'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
