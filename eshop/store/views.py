@@ -34,24 +34,3 @@ def contact(request):
     return render(request, 'store/contact.html', {
         'contact_form': form,
     })
-
-
-#Vue relative à la gestion du pannier
-def add_to_cart(request, slug):
-    user = request.user
-    product = get_object_or_404(Product, slug=slug)
-    cart, _ = Cart.objects.get_or_create(user=user)
-    order, created = Order.objects.get_or_create(user=user, product=product)
-
-    #1er cas : l'order n'est pas encore present dans le pannier, on le rajoute
-    if created:
-        cart.orders.add(order)
-        #on sauvegarde le pannier
-        cart.save()
-    #2e cas : l'order existe déjà dans le panier, alors on incrémente juste la Qté
-    else:
-        order.quantity += 1
-        #on sauvegarde le nouvel etat de l'order
-        order.save()
-
-    return render(request, 'store/menu_cart.html')

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'theme',
     'store',
     'accounts',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -132,3 +134,5 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = "accounts.shopper"
+SESSION_COOKIE_AGE = 86400
+CART_SESSION_ID = 'cart'

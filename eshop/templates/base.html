@@ -6,7 +6,6 @@
     <title>DIBI Shop</title>
     {% tailwind_css %}
   <script src="//unpkg.com/alpinejs" defer></script>
-  <script src="https://unpkg.com/htmx.org@1.7.0" defer></script>
 </head>
 <body>
     <div
@@ -78,7 +77,7 @@
 
             {% if user.is_authenticated %}
             <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {% include 'store/menu_cart.html' %}
+            {% include 'cart/menu_cart.html' %}
 
               <!-- Profile dropdown -->
               <div class="ml-3 relative" x-data="{ dropdown: false }">
@@ -262,5 +261,6 @@
     </p>
   </div>
 </footer>
+<script src="https://unpkg.com/htmx.org@1.7.0" defer></script>
 </body>
 </html>

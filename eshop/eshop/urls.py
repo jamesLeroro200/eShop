@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, reverse_lazy
-from store.views import index, product_detail, catalog, aboutUs, contact, add_to_cart
+from store.views import index, product_detail, catalog, aboutUs, contact
+from cart.views import add_to_cart
 from django.conf.urls.static import static
 from eshop import settings
 from accounts.views import signUp, signIn, logout_user
@@ -33,5 +34,5 @@ urlpatterns = [
     path('aboutUs/', aboutUs, name='aboutUs'),
     path('contact/', contact, name='contact'),
     path('product/<str:slug>', product_detail, name='product'),
-    path('product/<str:slug>/add-to-cart/', add_to_cart, name='add_to_cart'),
+    path('add-to-cart/<int:product_id>', add_to_cart, name='add_to_cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
