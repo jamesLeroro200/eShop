@@ -14,18 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from store.views import index, product_detail, catalog, aboutUs, contact
+from django.urls import path, reverse_lazy
+from store.views import index, product_detail, catalog, aboutUs, contact, add_to_cart
 from django.conf.urls.static import static
 from eshop import settings
-from accounts.views import signUp
+from accounts.views import signUp, signIn, logout_user
+from django.views.generic.base import RedirectView
+
 
 urlpatterns = [
     path('', index, name='index'),
+    path('administration/', RedirectView.as_view(url=reverse_lazy('admin:index')), name='admin'),
     path('admin/', admin.site.urls),
     path('signup/', signUp, name='signup'),
+    path('signin/', signIn, name='signin'),
+    path('logout/', logout_user, name='logout'),
     path('catalog/', catalog, name='catalog'),
     path('aboutUs/', aboutUs, name='aboutUs'),
     path('contact/', contact, name='contact'),
     path('product/<str:slug>', product_detail, name='product'),
+    path('product/<str:slug>/add-to-cart/', add_to_cart, name='add_to_cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

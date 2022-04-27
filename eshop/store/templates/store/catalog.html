@@ -5,107 +5,56 @@
     <h1 class="text-center font-bold text-2xl text-indigo-500">Responsive Grid Layout </h1>
 
     <div class="grid justify-center md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7 my-10">
+
+        {% for product in products %}
         <!-- Card 1 -->
         <div class="container flex justify-center">
             <div class="max-w-sm py-10">
               <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://www.tunisianet.com.tn/221848-large/pc-portable-asus-vivobook-x509fa-i3-10e-gen-4-go-silver.jpg" alt="" />
+                <img class="rounded-t-lg scale-75 hover:scale-100 transition ease-out duration-100 transform" src="{{ product.image.url }}" alt="{{ product.name }}" />
                 <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">PC Asus</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
+                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{ product.name }}</h1>
+                  <p class="text-gray-700 tracking-wide">{{ product.description | truncatewords:10 }}</p>
+                    <div class="flex flex-direction-column space-x-4">
+                      <a href="{% url 'product' slug=product.slug %}" class="flex flex-direction-row mt-6 py-2 px-4 bg-fuchsia-600 text-white font-bold rounded-lg shadow-md hover:bg-fuchsia-400 transition duration-300">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Details
+                      </a>
+                        {% if user.is_authenticated %}
+                      <a href="{% url 'add_to_cart' slug=product.slug %}" class="flex flex-direction-row mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                          Add to Cart
+                      </a>
+                        {% else %}
+                      <button class="cursor-not-allowed flex flex-direction-row mt-6 py-2 px-4 bg-indigo-500 text-gray-400 font-bold rounded-lg shadow-md transition duration-300" disabled>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                          Add to Cart
+                      </button>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$150</span>
+                  <span class="cursor-default text-md">${{ product.price }}</span>
                 </div>
               </div>
             </div>
         </div>
-
-        <!-- Card 2 -->
-        <div class="container flex justify-center">
-            <div class="max-w-sm py-10">
-              <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://www.ubuy.co.id/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNzFuc1NVR0kxSEwuX0FDX1NMMTUwMF8uanBn.jpg" alt=""/>
-                <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Gamer Mouse</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
-                </div>
-                <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$150</span>
-                </div>
-              </div>
+        {% empty %}
+        <div class="relative h-screen bg-white flex items-center justify-center">
+            <div class="text-center">
+                <div class="text-7xl text-indigo-600 leading-5">”</div>
+                    <div class="font-medium max-w-xl text-xl">
+                        No results found.
+                    </div>
             </div>
         </div>
-
-        <!-- Card 3 -->
-        <div class="container flex justify-center">
-            <div class="max-w-sm py-10">
-              <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://cdn.shopify.com/s/files/1/2652/5526/products/1_355f35ac-79ab-4a24-8f9a-2a3306d42359_1200x1200.jpg?v=1612431546" alt="" />
-                <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Canon PIXMA TR4520</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
-                </div>
-                <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$150</span>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="container flex justify-center">
-            <div class="max-w-sm py-10">
-              <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://media.ldlc.com/r1600/ld/products/00/05/89/84/LD0005898490_1.jpg" alt="" />
-                <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">MacBook Pro 2021</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
-                </div>
-                <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$850</span>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="container flex justify-center">
-            <div class="max-w-sm py-10">
-              <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://www.ooredoo.tn/Business/1581-large_default/portable-iphone-13-pro-128-go.jpg" alt="" />
-                <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Iphone 13 pro</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
-                </div>
-                <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$1150</span>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="container flex justify-center">
-            <div class="max-w-sm py-10">
-              <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <img class="rounded-t-lg" src="https://mk-media.mytek.tn/media/catalog/product/cache/8be3f98b14227a82112b46963246dfe1/9/8/98726-1.jpg" alt="" />
-                <div class="py-6 px-8 rounded-lg bg-white">
-                  <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Casque JBL</h1>
-                  <p class="text-gray-700 tracking-wide">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, labore. Ea debitis beatae sequi deleniti.</p>
-                  <button class="mt-6 py-2 px-4 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-400 transition duration-300">Add to Cart</button>
-                </div>
-                <div class="absolute top-2 right-2 py-2 px-4 bg-indigo-600 text-white rounded-lg">
-                  <span class="text-md">$85</span>
-                </div>
-              </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}

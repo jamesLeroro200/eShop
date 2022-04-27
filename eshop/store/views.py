@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from store.models import Product
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from store.models import Product, Cart, Order
 from django.http import HttpResponse
+from django.db.models import Q
 from store.forms import ContactForm
 
 # Create your views here.
@@ -13,6 +14,10 @@ def product_detail(request, slug):
 
 def catalog(request):
     products = Product.objects.all()
+    query = request.GET.get('q', '')
+
+    if query:
+        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
     return render(request, 'store/catalog.html', {"products": products})
 
 def aboutUs(request):
@@ -29,3 +34,24 @@ def contact(request):
     return render(request, 'store/contact.html', {
         'contact_form': form,
     })
+
+
+#Vue relative à la gestion du pannier
+def add_to_cart(request, slug):
+    user = request.user
+    product = get_object_or_404(Product, slug=slug)
+    cart, _ = Cart.objects.get_or_create(user=user)
+    order, created = Order.objects.get_or_create(user=user, product=product)
+
+    #1er cas : l'order n'est pas encore present dans le pannier, on le rajoute
+    if created:
+        cart.orders.add(order)
+        #on sauvegarde le pannier
+        cart.save()
+    #2e cas : l'order existe déjà dans le panier, alors on incrémente juste la Qté
+    else:
+        order.quantity += 1
+        #on sauvegarde le nouvel etat de l'order
+        order.save()
+
+    return render(request, 'store/menu_cart.html')
