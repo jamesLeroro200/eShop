@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- component -->
+<div class="container">
+      <div class="py-8">
+        <div class="w-1/2 mx-auto bg-white rounded-md border-4 border-dashed border-gray-400 mt-10">
+          <!-- first -->
+          <div class="flex flex-col justify-center items-center">
+            <h6 class="text-indigo-600 font-semibold text-xl mt-14">Please Confirm Checkout</h6>
+            <img class="block xs:hidden lg:block h-8 w-auto mt-4" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+            <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
+                Orders Summary
+             </div>
+            <div
+              class="
+                flex
+                justify-between
+                items-center
+                w-full
+                py-5
+                border-b-2 border-gray-200
+              "
+            >
+              <p class="text-gray-400 ml-4 flex flex-direction-row space-x-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Subtotal
+              </p>
+              <p class="text-black mr-4">$ {{ cart.get_sub_total |floatformat:2 }}</p>
+            </div>
+            <div
+              class="
+                flex
+                justify-between
+                items-center
+                w-full
+                py-5
+                border-b-2 border-gray-200
+              "
+            >
+              <p class="text-gray-400 ml-4 flex flex-direction-row space-x-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Shipping
+              </p>
+              <p class="text-black mr-4">$15</p>
+            </div>
+            <div
+              class="
+                flex
+                justify-between
+                items-center
+                w-full
+                py-5
+                border-b-2 border-gray-200
+              "
+            >
+              <p class="text-gray-400 ml-4 flex flex-direction-row space-x-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                VAT(included)
+              </p>
+              <p class="text-black mr-4">20%</p>
+            </div>
+            <div
+              class="
+                flex
+                justify-between
+                items-center
+                w-full
+                py-5
+                border-b-2 border-gray-200
+              "
+            >
+              <p class="cursor-default text-gray-400 ml-4 flex flex-direction-row space-x-5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Total
+              </p>
+              <p class="text-indigo-600 mr-4">$ {{ cart.get_total_price | floatformat:2 }}</p>
+            </div>
+
+            <div
+              class="
+                flex flex-col
+                justify-between
+                items-center
+                px-3
+                py-5
+                w-70
+                rounded-0 border-3 border-indigo-600 group hover:bg-gray-200
+              "
+            >
+              <div class="mb-5 flex flex-col min-w-full">
+                <label for="code" class="font-medium text-black group-hover:text-indigo-600 text-center"
+                  >add promo code</label
+                >
+                <input
+                  type="text"
+                  id="code"
+                  class="w-full py-2 border mt-3 border-gray-300 rounded-md"
+                />
+              </div>
+              <button
+                class="w-full bg-indigo-600 hover:bg-indigo-800 text-white px-2 py-2 rounded-md flex flex-direction-row space-x-3 justify-center items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                </svg>
+                Apply code
+              </button>
+            </div>
+            <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
+                Orders Summary
+             </div>
+                    {% for order in cart %}
+          <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-yellow-800 border-5 border-dashed bg-gray-800">
+            <div class="md:w-4/12 2xl:w-1/4 w-full">
+              <img src="{{ order.product.image.url }}" alt="Black Leather Bag" class="h-full object-center object-cover border border-indigo-600 border-8 rounded-lg md:block hidden" />
+              <img src="{{ order.product.image.url }}" alt="Black Leather Bag" class="md:hidden w-full h-full object-center object-cover" />
+            </div>
+            <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
+              <p class="text-xs leading-3 text-gray-800 dark:text-white md:pt-0 pt-4">RF293</p>
+              <div class="flex items-center justify-between w-full pt-1">
+                <p class="text-base font-black leading-none text-gray-800 dark:text-white">{{ order.product.name }}</p>
+              </div>
+              <p class="text-xs leading-3 text-gray-600 dark:text-white pt-2">Height: 10 inches</p>
+              <div class="flex items-center justify-between pt-5">
+                <p class="text-base font-black leading-none text-gray-800 dark:text-white">[ Final Price ]: <span class="text-yellow-400">$ {{ order.product.price }}  X  {{ order.quantity }}  = $ {{ cart.get_sub_total |floatformat:2  }}</span></p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+            <div class="px-3 py-5 border-b-2 border-gray-200">
+              <a href="{% url 'payment' %}"
+                class="
+                  min-w-full
+                  bg-red-400
+                  hover:bg-red-600
+                  font-semibold
+                  text-white
+                  px-2
+                  py-2
+                  rounded-md
+                  flex flex-direction-row space-x-3
+                "
+              >
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                Proceed to payment
+              </a>
+            </div>
+          </div>
+          <!-- end -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
