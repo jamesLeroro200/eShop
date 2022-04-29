@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -34,3 +35,7 @@ def signIn(request):
 def logout_user(request):
     logout(request)
     return redirect('index')
+
+@login_required
+def profil_account(request):
+    return render(request, 'accounts/profil_account.html')

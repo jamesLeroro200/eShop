@@ -19,7 +19,7 @@ from store.views import index, product_detail, catalog, aboutUs, contact
 from cart.views import add_to_cart, checkout, payment, payment_done
 from django.conf.urls.static import static
 from eshop import settings
-from accounts.views import signUp, signIn, logout_user
+from accounts.views import signUp, signIn, logout_user, profil_account
 from django.views.generic.base import RedirectView
 
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path('signin/', signIn, name='signin'),
     path('logout/', logout_user, name='logout'),
     path('catalog/', catalog, name='catalog'),
+    path('profile/', profil_account, name='profile'),
     path('aboutUs/', aboutUs, name='aboutUs'),
     path('contact/', contact, name='contact'),
     path('product/<str:slug>', product_detail, name='product'),

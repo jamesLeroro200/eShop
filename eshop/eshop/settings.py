@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tailwind',
+    'django_htmx',
     'theme',
     'store',
     'accounts',
     'cart',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'eshop.urls'
@@ -136,3 +139,5 @@ INTERNAL_IPS = [
 AUTH_USER_MODEL = "accounts.shopper"
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
+
+LOGIN_URL = '/signin/'

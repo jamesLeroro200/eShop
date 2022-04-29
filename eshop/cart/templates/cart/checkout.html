@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% load mathfilters %}
 <!-- component -->
 <div class="container">
       <div class="py-8">
@@ -10,7 +12,7 @@
             <h6 class="text-indigo-600 font-semibold text-xl mt-14">Please Confirm Checkout</h6>
             <img class="block xs:hidden lg:block h-8 w-auto mt-4" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
             <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
-                Orders Summary
+                Final Orders Summary
              </div>
             <div
               class="
@@ -116,7 +118,7 @@
               </button>
             </div>
             <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
-                Orders Summary
+                Final Orders
              </div>
                     {% for order in cart %}
           <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-yellow-800 border-5 border-dashed bg-gray-800">
@@ -131,11 +133,28 @@
               </div>
               <p class="text-xs leading-3 text-gray-600 dark:text-white pt-2">Height: 10 inches</p>
               <div class="flex items-center justify-between pt-5">
-                <p class="text-base font-black leading-none text-gray-800 dark:text-white">[ Final Price ]: <span class="text-yellow-400">$ {{ order.product.price }}  X  {{ order.quantity }}  = $ {{ cart.get_sub_total |floatformat:2  }}</span></p>
+                <p class="text-base font-black leading-none text-gray-800 dark:text-white">[ Final Price ]: <span class="text-yellow-400">$ {{ order.product.price |mul:order.quantity  }} = $ {{ order.product.price }}   X   {{ order.quantity }}</span></p>
               </div>
             </div>
           </div>
         {% endfor %}
+              <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
+                User Informations
+             </div>
+          <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="grid grid-cols-6 gap-6">
+              <div class="col-span-6 sm:col-span-3">
+                <label for="user-name" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" name="user-name" id="user-name" value="{{ request.user.username }}" class="mt-1 text-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" disabled>
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+                <label for="email-address" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="text" name="email-address" id="email-address" value="{{ request.user.email }}" class="mt-1 text-gray-500 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" disabled>
+              </div>
+
+            </div>
+          </div>
 
             <div class="px-3 py-5 border-b-2 border-gray-200">
               <a href="{% url 'payment' %}"
