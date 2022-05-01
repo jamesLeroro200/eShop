@@ -1,5 +1,6 @@
 from django.conf import settings
 from store.models import Product
+from decimal import Decimal
 
 class Cart(object):
     def __init__(self, request):
@@ -47,9 +48,24 @@ class Cart(object):
             self.save()
 
     def get_sub_total(self):
-        return sum(item['total_price'] for item in self.cart.values())
+        for p in self.cart.keys():
+            self.cart[str(p)]['product'] = Product.objects.get(pk=p)
+
+        return int(sum(item['product'].price * item['quantity'] for item in self.cart.values()))
 
     def get_total_price(self):
         sub_total = self.get_sub_total()
         total_price = sub_total + 15 + sub_total/100
+        if total_price <= 16:
+            return 0
         return total_price
+
+    def get_item(self, product_id):
+        if str(product_id) in self.cart:
+            return self.cart[str(product_id)]
+        else:
+            return None
+
+    def clear(self):
+        del self.session[settings.CART_SESSION_ID]
+        self.session.modified = True

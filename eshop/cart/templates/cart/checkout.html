@@ -117,27 +117,6 @@
                 Apply code
               </button>
             </div>
-            <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
-                Final Orders
-             </div>
-                    {% for order in cart %}
-          <div class="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-yellow-800 border-5 border-dashed bg-gray-800">
-            <div class="md:w-4/12 2xl:w-1/4 w-full">
-              <img src="{{ order.product.image.url }}" alt="Black Leather Bag" class="h-full object-center object-cover border border-indigo-600 border-8 rounded-lg md:block hidden" />
-              <img src="{{ order.product.image.url }}" alt="Black Leather Bag" class="md:hidden w-full h-full object-center object-cover" />
-            </div>
-            <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-              <p class="text-xs leading-3 text-gray-800 dark:text-white md:pt-0 pt-4">RF293</p>
-              <div class="flex items-center justify-between w-full pt-1">
-                <p class="text-base font-black leading-none text-gray-800 dark:text-white">{{ order.product.name }}</p>
-              </div>
-              <p class="text-xs leading-3 text-gray-600 dark:text-white pt-2">Height: 10 inches</p>
-              <div class="flex items-center justify-between pt-5">
-                <p class="text-base font-black leading-none text-gray-800 dark:text-white">[ Final Price ]: <span class="text-yellow-400">$ {{ order.product.price |mul:order.quantity  }} = $ {{ order.product.price }}   X   {{ order.quantity }}</span></p>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
               <div class="bg-gray-400 mb-5 rounded-full mr-5 pl-5 mt-8 flex flex-col min-w-full ml-5 text-2xl font-bold text-center">
                 User Informations
              </div>
