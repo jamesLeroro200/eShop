@@ -10,7 +10,12 @@ def index(request):
 
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    return render(request, 'store/details.html', {'product':product})
+    similar_products = Product.objects.exclude(name=product.name)
+    query = request.GET.get('q', product.category)
+
+    if query:
+        similar_products = similar_products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    return render(request, 'store/details.html', {'product':product, 'suggestions':similar_products})
 
 def catalog(request):
     products = Product.objects.all()

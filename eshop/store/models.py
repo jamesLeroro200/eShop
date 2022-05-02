@@ -18,6 +18,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to="products", blank=True, null=True)
     slug = models.SlugField(max_length=128)
+    category = models.CharField(max_length=128)
 
     def __str__(self):
         return f"{self.name} (stock = {self.stock})"
