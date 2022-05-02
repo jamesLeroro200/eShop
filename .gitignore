@@ -1,2 +1,6 @@
 venv
 eshop/db.sqlite3
+.idea/
+db.sqlite3
+__pycache__/
+eshop/.env
