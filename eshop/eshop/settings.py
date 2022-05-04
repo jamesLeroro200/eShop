@@ -20,12 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-env = environ.Env()
-environ.Env.read_env(env_file=str(BASE_DIR / 'eshop' / '.env'))
+#env = environ.Env()
+#environ.Env.read_env(env_file=str(BASE_DIR / 'eshop' / '.env'))
 
-SECRET_KEY = env("SECRET_KEY")
-DEBUG = env.bool("DEBUG")
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+SECRET_KEY = 'mmhth%-=7*kcfqtv7al2ef8z7)lmnw0=bhex147#ivh@!z-$xu'
+DEBUG = True
+ALLOWED_HOSTS=['127.0.0.1', 'localhost']
+#ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
