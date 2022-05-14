@@ -59,3 +59,6 @@ def payment_done(request):
 
 def hx_cart_sub_total(request):
     return render(request, 'cart/cart_total.html')
+
+def cart_view(request):
+    return render(request, 'cart/cart.html')

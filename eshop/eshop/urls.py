@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, reverse_lazy
 from store.views import index, product_detail, catalog, aboutUs, contact
-from cart.views import add_to_cart, checkout, payment, payment_done, orders_list, update_cart, hx_cart_sub_total
+from cart.views import add_to_cart, checkout, payment, payment_done, orders_list, update_cart, hx_cart_sub_total, cart_view
 from django.conf.urls.static import static
 from eshop import settings
 from accounts.views import signUp, signIn, logout_user, profil_account
@@ -34,6 +34,7 @@ urlpatterns = [
     path('profile/', profil_account, name='profile'),
     path('aboutUs/', aboutUs, name='aboutUs'),
     path('contact/', contact, name='contact'),
+    path('cart/', cart_view, name='cart'),
     path('orders/', orders_list, name='orders_list'),
     path('product/<str:slug>', product_detail, name='product'),
     path('checkout/', checkout, name='checkout'),
